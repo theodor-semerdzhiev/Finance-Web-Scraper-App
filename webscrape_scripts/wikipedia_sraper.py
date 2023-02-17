@@ -17,14 +17,14 @@ try:
 except Exception as e:
   print(e, '\n -----printing to standard output instead-----')
   for company in table:
-    print(f'#{i}: ' +company.text+'\n')
+    print(company.text+'\n')
     i+=1
   exit
   
 
 for company in table:
     try:
-      file.write(f'#{i}: ' +company.text+'\n')
+      file.write(company.text+'\n')
       i+=1
     except Exception as e:
       print(e)
