@@ -1,17 +1,15 @@
-import './App.css';
 import { Component } from 'react';
+import FinanceData from './components/FinanceData';
+import SearchForm from './components/SearchForm';
 
-class App extends Component {
-  constructor(){
-    super()
 
-  }
-
-  render(){
-    return <div>
-      <p>HI</p>
+export default function App() {
+    return (
+    <div>
+      <SearchForm/>
+      <FinanceData/>
     </div>
-  }
+    )
+  
 }
 
-export default App;
