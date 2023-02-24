@@ -2,9 +2,10 @@ import requests
 from bs4 import BeautifulSoup
 import asyncio
 
-async def scrapeFinanceData():
+# companykey will be a string (AAPL is an example)
+async def scrapeFinanceData(companykey):
 
-    url = "https://finance.yahoo.com/quote/AAPL?p=AAPL"
+    url = f"https://finance.yahoo.com/quote/{companykey}?p={companykey}"
     response=None
     try:
         response = requests.get(url)
