@@ -6,7 +6,7 @@ import yahoo_scraper
 
 app = Flask(__name__)
 CORS(app)
-
+#test
 @app.route('/<companykey>/', methods=['GET'])
 async def index(companykey):
     print(companykey)
