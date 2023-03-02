@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import InfoBox from "./InfoBox";
+import ArticleSection from "./ArticleSection";
 
 //make sure to fix bug where financial_info.data.payload is null
 export default function FinanceData() {
@@ -13,12 +14,15 @@ export default function FinanceData() {
   } else {
     return (
       <div>
+        <div>
         {
         financial_info.data.payload?
         Object.entries(financial_info.data.payload).map((data_key,index) => { 
           return <InfoBox data={data_key} key={index}/>
         }):''
         }
+        </div>
+        <ArticleSection/>
       </div>
     )
     }

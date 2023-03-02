@@ -30,6 +30,8 @@ export const financial_info = createSlice({
           state.value.error_status.status = action.payload.status
           state.value.error_status.type_of_error = action.payload.error_type
           break
+        case 'NO_ERROR':
+          state.value.error_status.status = action.payload.status
         default:
           break
       }

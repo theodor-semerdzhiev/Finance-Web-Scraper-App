@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import {configureStore} from "@reduxjs/toolkit";
 import {Provider} from'react-redux';
-import financial_info from './features/financial_info';
+import financial_info from './features/stock_info';
 
 const store = configureStore({
   reducer: {
