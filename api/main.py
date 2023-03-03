@@ -17,14 +17,12 @@ async def index():
 
 @app.route('/<companykey>/', methods=['GET'])
 async def getStockInfo(companykey):
-    print(companykey)
     json_info = scrapeFinanceData(companykey)
     
     return json_info
 
 @app.route('/newsapi/<companykey>/', methods=['GET'])
 async def getNews(companykey):
-    print(companykey)
     json_info = getCurrentNews(companykey)
     return json_info
 

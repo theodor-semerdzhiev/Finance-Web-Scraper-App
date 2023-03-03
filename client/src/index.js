@@ -3,11 +3,13 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import {configureStore} from "@reduxjs/toolkit";
 import {Provider} from'react-redux';
-import financial_info from './features/stock_info';
+import stock_info, { stock } from './features/stock_info';
+import news_info from './features/news_info';
 
 const store = configureStore({
   reducer: {
-    financial_info: financial_info
+    stock_info: stock_info,
+    news_info: news_info
   }
 });
 
