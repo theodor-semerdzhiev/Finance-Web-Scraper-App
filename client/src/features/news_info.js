@@ -15,7 +15,7 @@ export const news_info = createSlice({
     }},
     reducers: {
         display_news_info: (state, action) => {
-            state.value.data = action.payload
+            state.value.data = action.payload['payload']
             state.value.as_been_fetched=true
             return state
         },

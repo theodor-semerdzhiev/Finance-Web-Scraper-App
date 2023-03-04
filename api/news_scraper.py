@@ -7,7 +7,7 @@ This function takes in a company key and create a bing query (because its more w
 in order to retrive recent articles and then parse that into a defacto JSON (dict)
 """
 def getCurrentNews(companykey):
-    url=f'https://www.bing.com/news/search?q={companykey}+news'
+    url=f'https://www.bing.com/news/search?q={companykey}+stock+and+finance+news'
     response=None
     try:
         response= requests.get(url)
@@ -25,9 +25,10 @@ def getCurrentNews(companykey):
         results[i]['title']=foo[1].text
         results[i]['time']=div.find("span", attrs={'tabindex':"0"}).get('aria-label')
         results[i]['snippet']=div.find('div',attrs={'class':'snippet'}).text
+        results[i]['link']=div.find('a', attrs={'target':'_blank'})['href']
     
     return results
-            
+
 
     
     

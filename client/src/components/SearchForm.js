@@ -14,7 +14,6 @@ import {
 export default function SearchForm() {
   const dispatch = useDispatch()
 
-
   //this function send api call to backend to retrieve current stock info
   const getFinanceData = async (companykey) => {
     dispatch(set_error_status_stock({error_type:'NO_ERROR',status: false}))
@@ -23,10 +22,9 @@ export default function SearchForm() {
     }).catch(error => {
         return null
     })
-    if(!response) return null
+    if(!response) throw Promise.reject(new Error(`response from endpoint / returned null`))
     return response.json()
   }
-
 
   //this function fetches news data from the /newsapi
   const getNewsData = async (companykey) => {
@@ -35,40 +33,35 @@ export default function SearchForm() {
     }).catch(error => {
         return null
     })
-    if(!response) return null
+    if(!response) throw Promise.reject(new Error(`response from endpoint /newsapi/ returned null`))
     return response.json()
   }
 
   //This function handles the retrival of the stock data
   //TODO make this function use callbacks and promies for error handling 
   const handlestockdata = async (event) => {
-    
     dispatch(set_loading_status_stock({status: true}))
-    const formatted_str=event.target.submit.value.trim().toUpperCase()
-    const stockdata = await getFinanceData(formatted_str) 
-    if(stockdata) {
+    try {
+      const stockdata = await getFinanceData(event.target.submit.value.trim().toUpperCase())
       dispatch(display_finance_info({payload: stockdata}))
-    } else {
+      dispatch(set_error_status_stock({error_type: 'NO_ERROR', payload: true}))
+    } catch(ex) {
       dispatch(display_finance_info({payload: {}}))
       dispatch(display_news_info({payload: {}}))
       dispatch(dispatch(set_error_status_news({error_type: 'FETCH_ERROR',status: true}))) 
-      dispatch(set_loading_status_stock({status: false}))
-      throw Promise.reject(new Error('Could not fetch Data'))
     }
     dispatch(set_loading_status_stock({status: false}))
-
   }
     
   //This Function handles the retrieval of the news data
-  //TODO make this function use callbacks and promies for error handling 
   const handle_news_data= async (event) => {
     dispatch(set_loading_status_news({status: true}))
     const formatted_str=event.target.submit.value.trim().toUpperCase()
-    const newsdata = await getNewsData(formatted_str)
-    if(newsdata) {
+    try {
+      const newsdata = await getNewsData(formatted_str)
       dispatch(display_news_info({payload: newsdata}))
       dispatch(set_error_status_news({error_type: 'NO_ERROR', payload: true}))
-    } else {
+    } catch(Ex) {
       dispatch(set_error_status_news({error_type: 'FETCH_ERROR', payload: true}))
     }
     dispatch(set_loading_status_news({status: false}))
@@ -78,18 +71,19 @@ export default function SearchForm() {
         <form onSubmit={async (event) => 
           {
             event.preventDefault()
-            if(!event.target.submit.value.trim()) {
+            const formatted_key=event.target.submit.value.trim();
+            if(!formatted_key) {
               dispatch(set_error_status_stock({error_type: 'EMPTY_SUBMIT',status: true}))
               return
             }
             await handlestockdata(event).then(async ()=>{
               await handle_news_data(event)
-              const formatted_key=event.target.submit.value.trim();
               dispatch(set_companykey_news({payload: formatted_key}))
               dispatch(set_companykey_stock({payload: formatted_key}))
             }).catch(() => {
               return
             })
+
           }}>
           <label>Submit Link</label>
           <input id='submit'/>
