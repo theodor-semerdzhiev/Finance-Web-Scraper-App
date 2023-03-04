@@ -13,9 +13,9 @@ export default function FinanceData(companykey) {
     )   
   } else if(stock_info.error_status.status) {
     return (
-    <div>
-    <p>{stock_info.error_status.type_of_error}</p>
-    </div>)
+        <div>
+          <p>{stock_info.error_status.type_of_error}</p>
+        </div>)
   } else {
 
     return (

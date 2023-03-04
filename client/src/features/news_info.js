@@ -28,6 +28,7 @@ export const news_info = createSlice({
                     break
                 case 'NO_ERROR':
                     state.value.error_status.status = action.payload.status
+                    break
                 default:
                     break
             }

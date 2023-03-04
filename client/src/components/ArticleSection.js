@@ -2,10 +2,8 @@ import { useSelector } from "react-redux"
 import NewsInfoBox from "./NewsInfoBox"
 import _ from "lodash"
 export default function ArticleSection() {
-
     //each individual article will have its own articlebox.js
     const news_info = useSelector((state) => state.news_info.value)
-    console.log(news_info)
     //if data is empty then we dont display anything
     if(_.isEmpty(news_info.data)) {
         return (<div></div>)

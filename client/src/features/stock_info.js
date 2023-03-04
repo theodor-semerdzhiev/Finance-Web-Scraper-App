@@ -21,7 +21,6 @@ export const stock_info = createSlice({
     },
     set_error_status_stock: (state, action) => {
       //switch case for difference types of errors
-      console.log(action)
       switch(action.payload.error_type) {
         case 'FETCH_ERROR':
           state.value.error_status.status = action.payload.status
@@ -33,6 +32,7 @@ export const stock_info = createSlice({
           break
         case 'NO_ERROR':
           state.value.error_status.status = action.payload.status
+          break
         default:
           break
       }
